@@ -1,0 +1,85 @@
+/* General page styling */
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f6fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.container {
+    background: #fff;
+    padding: 30px;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Headings */
+h1, h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #333;
+}
+
+select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+/* Results container (Flex layout) */
+.results-container {
+    display: flex;
+    flex-wrap: wrap;        /* Wrap to new lines */
+    gap: 20px;
+    justify-content: center; /* Center horizontally */
+    align-items: flex-start; /* Align cards to the top */
+}
+
+/* Polling unit result cards */
+.polling-unit-block {
+    flex: 1 1 300px;         /* Flexible width, min 300px */
+    max-width: 400px;
+    padding: 20px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    box-sizing: b

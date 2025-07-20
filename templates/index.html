@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bincom Test Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Bincom Voting Portal</h1>
+
+        <!-- Polling Unit Selection Form -->
+        <form id="pollingForm" method="get">
+            <label for="polling_unit_id">Select Polling Unit:</label>
+            <select id="polling_unit_id" required>
+                {% for pu in polling_units %}
+                    <option value="{{ pu.polling_unit_id }}">{{ pu.polling_unit_name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">View Results</button>
+        </form>
+
+        <!-- Navigation Links -->
+        <ul>
+            <li><a href="{{ url_for('lga_results') }}">View LGA Total Results</a></li>
+            <li><a href="{{ url_for('lga_polling_results') }}">View All Polling Unit Results by LGA</a></li>
+            <li><a href="{{ url_for('add_result') }}">Enter New Polling Unit Result</a></li>
+        </ul>
+    </div>
+
+    <!-- JavaScript for dynamic form action -->
+    <script>
+        document.getElementById('pollingForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const selectedId = document.getElementById('polling_unit_id').value;
+            this.action = `/polling_unit_results/${selectedId}`;
+            this.submit();
+        });
+    </script>
+</body>
+</html>

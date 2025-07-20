@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='add_results.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Enter New Polling Unit Result</h1>
+
+        <form method="post">
+            <label for="polling_unit_uniqueid">Polling Unit:</label>
+            <select name="polling_unit_uniqueid" required>
+                {% for unit in polling_units %}
+                    <option value="{{ unit.uniqueid }}">
+                        {{ unit.polling_unit_name or unit.polling_unit_number }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <label for="party_abbreviation">Party Abbreviation:</label>
+            <input type="text" name="party_abbreviation" required>
+
+            <label for="party_score">Score:</label>
+            <input type="number" name="party_score" required>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+    </div>
+</body>
+</html>

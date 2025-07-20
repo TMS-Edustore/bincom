@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LGA Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='lga_results.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>View Total LGA Results</h1>
+
+        <form method="post">
+            <label for="lga_id">Select LGA:</label>
+            <select name="lga_id" id="lga_id" required>
+                {% for lga in lgas %}
+                    <option value="{{ lga.lga_id }}" 
+                        {% if selected_lga and selected_lga.lga_id == lga.lga_id %}selected{% endif %}>
+                        {{ lga.lga_name }} - {{ lga.lga_id }}
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if selected_lga %}
+            <h2>Total Results for {{ selected_lga.lga_name }} - {{ selected_lga.lga_id }}</h2>
+            <table>
+                <tr>
+                    <th>Party</th>
+                    <th>Total Score</th>
+                </tr>
+                {% for party, score in total_scores.items() %}
+                    <tr>
+                        <td>{{ party }}</td>
+                        <td>{{ score }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+        <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+    </div>
+</body>
+</html>

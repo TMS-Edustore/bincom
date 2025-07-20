@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LGA Polling Unit Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='lga_polling_results.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>View Results by Polling Units in an LGA</h1>
+
+        <!-- Filter Form -->
+        <form method="post">
+            <label for="lga_id">Select Local Government:</label>
+            <select name="lga_id" id="lga_id" required>
+                {% for lga in lgas %}
+                    <option value="{{ lga.lga_id }}"
+                        {% if selected_lga and selected_lga.lga_id == lga.lga_id %}selected{% endif %}>
+                        {{ lga.lga_name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <label for="party">Select Party (Optional):</label>
+            <select name="party" id="party">
+                <option value="">All Parties</option>
+                {% for party in parties %}
+                    <option value="{{ party }}"
+                        {% if selected_party == party %}selected{% endif %}>
+                        {{ party }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">View Results</button>
+        </form>
+
+        <!-- Results Section -->
+        {% if selected_lga %}
+            <h2>
+                Polling Unit Results for {{ selected_lga.lga_name }}
+                {% if selected_party %} - Party: {{ selected_party }}{% endif %}
+            </h2>
+
+            <div class="results-container">
+                {% for group in results_by_pu %}
+                    <div class="polling-unit-block">
+                        <h3>{{ group.polling_unit.polling_unit_name or "Unit " ~ group.polling_unit.polling_unit_number }}</h3>
+
+                        {% if group.results %}
+                            <table>
+                                <tr>
+                                    <th>Party</th>
+                                    <th>Score</th>
+                                </tr>
+                                {% for result in group.results %}
+                                    <tr>
+                                        <td>{{ result.party_abbreviation }}</td>
+                                        <td>{{ result.party_score }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        {% else %}
+                            <p>No results found for this polling unit.</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+    </div>
+</body>
+</html>
